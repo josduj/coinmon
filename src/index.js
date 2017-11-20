@@ -64,7 +64,7 @@ axios.get(sourceUrl)
       const change1h = percentChange1h ? (percentChange1h > 0 ? textChange1h.green : textChange1h.red) : 'NA'
       return [
         record.rank,
-        `💰  ${record.symbol}`, 
+        record.symbol.bold,
         record[`price_${convert}`.toLowerCase()], 
         change24h,
         change1h,
