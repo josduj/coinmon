@@ -3,7 +3,7 @@ const program = require('commander');
 const axios = require('axios');
 const ora = require('ora');
 const cfonts = require('cfonts');
-const Table = require('cli-table2');
+const Table = require('tty-table')('automattic-cli-table');
 const colors = require('colors');
 
 program
