@@ -37,6 +37,7 @@ const table = new Table({
     'right-mid': '-',
     'middle': '│'
   },
+  align: 'left',
   head: ['Rank', 'Coin', `Price (${convert})`, 'Change (24H)', 'Change (1H)', `Market Cap (${convert})`].map(title => title.yellow),
   colWidths: [6, 14, 15, 15, 15, 20]
 });
