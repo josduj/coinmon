@@ -14,11 +14,8 @@ program
 
 const find = program.find
 const top = !isNaN(program.top) && +program.top > 0 ? +program.top : (find ? 1500 : 10)
-const convert = program.convert.toUpperCase()
-const availableCurrencies = ['USD', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PKR', 'PLN', 'RUB', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'ZAR']
-if (availableCurrencies.indexOf(convert) === -1) {
-  return console.log('We cannot convert to your fiat currency.'.red)
-}
+let convert = program.convert.toUpperCase()
+
 const table = new Table({
   chars: {
     'top': '-',
@@ -38,7 +35,7 @@ const table = new Table({
     'middle': '│'
   },
   align: 'left',
-  head: ['Rank', 'Coin', `Price (${convert})`, 'Change (24H)', 'Change (1H)', `Market Cap (${convert})`].map(title => title.yellow),
+  head: ['Rank', 'Coin', 'Price', 'Change (24H)', 'Change (1H)', 'Market Cap'].map(title => title.yellow),
   colWidths: [6, 14, 15, 15, 15, 20]
 });
 
@@ -63,6 +60,12 @@ axios.get(sourceUrl)
       const percentChange1h = record.percent_change_1h
       const textChange1h = `${percentChange1h}%`
       const change1h = percentChange1h ? (percentChange1h > 0 ? textChange1h.green : textChange1h.red) : 'NA'
+
+      if (record[`price_${convert.toLowerCase()}`] == undefined) {
+        console.log(`Could not convert to ${convert.yellow}. Showing data in ${'USD'.yellow}`);
+        convert = 'usd';
+      }
+
       return [
         record.rank,
         record.symbol.bold,
