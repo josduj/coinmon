@@ -2,7 +2,6 @@
 const program = require('commander');
 const axios = require('axios');
 const ora = require('ora');
-const cfonts = require('cfonts');
 const Table = require('tty-table')('automattic-cli-table');
 const colors = require('colors');
 
@@ -42,16 +41,6 @@ const table = new Table({
   colWidths: [6, 14, 15, 15, 15, 20]
 });
 
-cfonts.say('coinmon', {
-  font: 'simple3d',
-  align: 'left',
-  colors: ['yellow'],
-  background: 'Black',
-  letterSpacing: 2,
-  lineHeight: 1,
-  space: true,
-  maxLength: '0'
-});
 const spinner = ora('Loading data').start();
 const sourceUrl = `https://api.coinmarketcap.com/v1/ticker/?limit=${top}&convert=${convert}`
 axios.get(sourceUrl)
